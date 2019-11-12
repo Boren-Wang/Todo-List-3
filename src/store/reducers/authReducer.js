@@ -4,14 +4,16 @@ import * as actionCreators from '../actions/actionCreators'
 // THEIR JOB IS TO ADVANCE THE STATE. THEY WILL UPDATE
 // AND RETURN THE NEW, UPDATED STATE
 
-const initState = {};
+const initState = {
+  authError: null 
+};
 
 const authReducer = (state = initState, action) => {
   switch (action.type) {
     case actionCreators.LOGIN_ERROR:
       return {
         ...state,
-        authError: 'Login fail',
+        authError: action.error.message,
       };
     case actionCreators.LOGIN_SUCCESS:
       return {
@@ -28,7 +30,7 @@ const authReducer = (state = initState, action) => {
     case actionCreators.REGISTER_ERROR:
       return {
         ...state,
-        authError: action.err.message,
+        authError: action.error.message,
       };
     default:
       return state;

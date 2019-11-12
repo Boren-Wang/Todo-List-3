@@ -24,7 +24,6 @@ class RegisterScreen extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-
     const { props, state } = this;
     const { firebase } = props;
     const newUser = { ...state };
@@ -37,7 +36,7 @@ class RegisterScreen extends Component {
     if (auth.uid) {
       return <Redirect to="/" />;
     }
-
+    console.log(authError)
     return (
       <div className="container">
         <form onSubmit={this.handleSubmit} className="white">

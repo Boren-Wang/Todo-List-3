@@ -35,6 +35,10 @@ div.banner {
 .home_new_list_button {
   font-size: 32pt;
 }
+
+.home_new_list_button .link {
+  color: black;
+}
 .home_new_list_button:hover {
   box-shadow: 1px 2px;
 }
