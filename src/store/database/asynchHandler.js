@@ -40,14 +40,62 @@ export const createHandler = (todoList) => {
       const firestore = getFirestore()
       const profile = getState().firebase.profile
       const authorId = getState().firebase.auth.uid
-      console.log(getState())
-      firestore.collection('todoLists').add({
+      const newTodoList = {
         ...todoList,
         authorFirstName: profile.firstName,
         authorLastName: profile.lastName,
         authorId: authorId
-      })
-          .then(() => dispatch({type: "CREATE_LIST", todoList}))
-          .catch(err => dispatch({type: "CREATE_LIST_ERROR", err}))
+      }
+      firestore.collection('todoLists').add(newTodoList)
+        .then(() => dispatch({type: "CREATE_LIST", newTodoList}))
+        .catch(error => dispatch({type: "CREATE_LIST_ERROR", error}))
   }
 }
+
+export const editHandler = (todoList) => {
+  return (dispatch, getState, {getFirebase, getFirestore}) => {
+      const firestore = getFirestore()
+      firestore.collection('todoLists').doc(todoList.id).update(todoList)
+        .then(()=> dispatch({type: "EDIT_LIST", todoList}) )
+        .catch(error => dispatch({type: "EDIT_LIST_ERROR", error}))
+  }
+}
+
+export const deleteHandler = (todoList) => {
+  console.log("Deleting!")
+  return (dispatch, getState, {getFirebase, getFirestore}) => {
+    const firestore = getFirestore()
+    firestore.collection('todoLists').doc(todoList.id).delete()
+      .then(()=> dispatch({type: "DELETE_LIST", todoList}) )
+      .catch(error => dispatch({type: "DELETE_LIST_ERROR", error}))
+    
+  }
+}
+
+export const createItemHandler = (todoList, newItem) => {
+  return (dispatch, getState, {getFirebase, getFirestore}) => {
+    console.log(todoList, newItem)
+    todoList.items.push(newItem)
+    const firestore = getFirestore()
+    firestore.collection('todoLists').doc(todoList.id).update(todoList)
+      .then(()=> dispatch({type: "CREATE_ITEM", newItem}) )
+      .catch(error => dispatch({type: "CREATE_ITEM_ERROR", error}))
+  }
+}
+
+export const editItemHandler = (todoList, newItem) => {
+  return (dispatch, getState, {getFirebase, getFirestore}) => {
+    // todoList.items[newItem.itemId] = newItem
+
+    // let index = todoList.items.indexOf(todoList.items.filter(item => newItem.itemId == item.id)[0])
+    // todoList.items[index] = newItem
+
+    todoList.items[newItem.id] = newItem
+    console.log(todoList)
+    const firestore = getFirestore()
+    firestore.collection('todoLists').doc(todoList.id).update(todoList)
+      .then(()=> dispatch({type: "EDIT_ITEM", newItem}) )
+      .catch(error => dispatch({type: "EDIT_ITEM_ERROR", error}))
+  }
+}
+

@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
 import { Redirect } from 'react-router-dom';
-// import {createTodoList} from '../../store/actions/actionCreators'
 import {createHandler} from '../../store/database/asynchHandler'
 
 class CreateList extends Component {
@@ -13,7 +12,8 @@ class CreateList extends Component {
     "items": [],
     "authorFirstName": "",
     "authorLastName": "",
-    "authorId": ""
+    "authorId": "",
+    "editAt": new Date()
   }
 
   handleChange = (e) => {
@@ -30,7 +30,10 @@ class CreateList extends Component {
 
     const { props, state } = this;
     const { firebase } = props;
-    const newList = { ...state };
+    const newList = { 
+      ...state, 
+      editAt: new Date()
+    };
 
     this.props.createTodoList(newList)
     this.props.history.push("/")

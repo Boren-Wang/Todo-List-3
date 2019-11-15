@@ -42,3 +42,18 @@ div.banner {
 .home_new_list_button:hover {
   box-shadow: 1px 2px;
 }
+
+/* LIST SCREEN CLASSES */
+.list_item_card, .list_item_add_card {
+  background-color: var(--swatch-neutral);
+}
+.list_item_card:hover, .list_item_add_card:hover {
+  background-color: var(--swatch-complement);
+}
+.list_item_add_card {
+  font-weight: bold;
+  font-size: 24pt;
+}
+.list_item_add_card:hover {
+  color: var(--swatch-bright-accent);
+}

@@ -31,27 +31,18 @@ export function logoutSuccess() {
 };
 
 // THESE CREATORS MAKE ACTIONS FOR ASYNCHRONOUS TODO LIST UPDATES
-// export function createTodoList(todoList) {
-//     return {
-//         type: 'CREATE_TODO_LIST',
-//         todoList
-//     }
-// }
-
-// export function createTodoListError(error) {
-//     return {
-//         type: 'CREATE_TODO_LIST_ERROR',
-//         error
-//     }
-// }
-
-export const createTodoList = (todoList) => {
-    return (dispatch, getState, {getFirebase, getFirestore}) => {
-        // make async call to database
-        const firestore = getFirestore()
-        firestore.collection('todoLists').add(todoList)
-            .then(() => dispatch({type: "CREATE_LIST", todoList}))
-            .catch(err => dispatch({type: "CREATE_LIST_ERROR", err}))
+export function createTodoList(todoList) {
+    return {
+        type: 'CREATE_TODO_LIST',
+        todoList
     }
 }
+
+export function createTodoListError(error) {
+    return {
+        type: 'CREATE_TODO_LIST_ERROR',
+        error
+    }
+}
+
 

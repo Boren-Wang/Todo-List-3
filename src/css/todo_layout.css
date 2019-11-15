@@ -48,3 +48,79 @@ input[type=email]:not(.browser-default):focus:not([readonly]) + label,
 input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   color: #ec407a !important;
 }
+
+/* LIST SCREEN CONTROLS */
+#list_heading {}
+#list_trash {
+  position: relative;
+  left: auto;
+  font-size: 30px;
+  text-align: right;
+}
+#list_details_container {
+  padding-left: 2%;
+  display: grid;
+  grid-template-columns: 40% 1fr;
+  grid-gap: 5px;
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+#list_details_name_container {}
+#list_name_prompt {}
+#list_name_textfield {}
+#list_details_owner_container {}
+#list_owner_prompt {}
+#list_owner_textfield {}
+#list_items_container {}
+
+/* LIST SCREEN CLASSES */
+.list_item_card, .list_item_add_card, .list_item_header_card {
+  position: relative;
+  height: 50px;
+  grid-row-gap: 0px;
+  grid-column-gap: 50px;
+  margin-top: 0px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.list_item_card_description {
+  position: absolute;
+  left: 2%;
+}
+.list_item_task_header, .list_item_due_date_header, .list_item_status_header {
+  position: absolute;
+  top: 5%;
+}
+.list_item_card_assigned_to, .list_item_card_due_date, 
+.list_item_card_completed, .list_item_card_not_completed {
+  position: absolute;
+  top: 50%;
+}
+.list_item_task_header, .list_item_card_assigned_to {
+  left: 2%;
+}
+.list_item_due_date_header, .list_item_card_due_date {
+  left: 35%;
+}
+.list_item_status_header, .list_item_card_completed, .list_item_card_not_completed {
+  left: 60%;
+}
+.list_item_card_toolbar {
+  position: absolute;
+  left: 85%;
+  width: 15%;
+  top: 5%;
+  height: 90%;
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+}
+.list_item_card_button {
+  text-align: center;
+  border-radius: 5px;
+  margin: 1%;
+}
+.list_item_add_card {
+  text-align: center;
+  vertical-align: center;
+}
