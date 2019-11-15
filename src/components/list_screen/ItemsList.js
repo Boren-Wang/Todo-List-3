@@ -4,6 +4,7 @@ import { compose } from 'redux';
 import ItemCard from './ItemCard';
 import { firestoreConnect } from 'react-redux-firebase';
 import {Link} from 'react-router-dom'
+import { Button, Icon } from 'react-materialize';
 
 class ItemsList extends React.Component {
     render() {
@@ -15,9 +16,22 @@ class ItemsList extends React.Component {
                 {items && items.map(function(item) {
                     item.id = item.key;
                     return (
-                        <Link to={"/todoList/"+todoList.id+"/item/"+item.id}>
-                            <ItemCard todoList={todoList} item={item} />
-                        </Link>
+                        <div>
+                            <Link to={"/todoList/"+todoList.id+"/item/"+item.id}>
+                                <ItemCard todoList={todoList} listItem={item} />
+                            </Link>
+                            <Button
+                                floating
+                                fab={{direction: 'left'}}
+                                className="red"
+                                small
+                                style={{position: 'relative', textAlign: "right"}}
+                            >
+                                <Button small floating icon={<Icon />} className="red" style={{margin: "0px"}}/>
+                                <Button small floating icon={<Icon />} className="yellow darken-1" style={{margin: "0px"}}/>
+                                <Button small floating icon={<Icon />} className="green" style={{margin: "0px"}}/>
+                            </Button>
+                        </div>
                     );})
                 }
             </div>

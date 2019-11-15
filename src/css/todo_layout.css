@@ -124,3 +124,14 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   text-align: center;
   vertical-align: center;
 }
+
+.fixed-action-btn {
+  position: fixed;
+  right: 0px;
+  bottom: 38.9px;
+}
+
+.fixed-action-btn.direction-left ul li, .fixed-action-btn.direction-right ul li {
+  display: inline-block;
+  margin: 0px 3px 0 0;
+}

@@ -60,7 +60,7 @@ class ListScreen extends Component {
                     actions={
                         <div>
                             <Button className="red" onClick={ () => { this.props.deleteTodoList(todoList); this.props.history.push('/')} }>Yes</Button>
-                            <Button modal="close" >No</Button>
+                            <Button modal="close">No</Button>
                             {/* this.props.deleteTodoList(todoList) */}
                         </div>
                     }
