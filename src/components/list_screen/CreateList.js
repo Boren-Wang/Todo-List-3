@@ -50,11 +50,11 @@ class CreateList extends Component {
         <form onSubmit={this.handleSubmit} className="white">
           <h5 className="grey-text text-darken-3">Create a new list</h5>
           <div className="input-field">
-            <label htmlFor="name">Name</label>
+            <label htmlFor="name" className="active">Name</label>
             <input type="name" name="name" id="name" onChange={this.handleChange} />
           </div>
           <div className="input-field">
-            <label htmlFor="owner">Owner</label>
+            <label htmlFor="owner" className="active">Owner</label>
             <input type="owner" name="owner" id="owner" onChange={this.handleChange} />
           </div>
           <div className="input-field">

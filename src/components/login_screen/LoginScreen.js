@@ -49,11 +49,11 @@ class LoginScreen extends Component {
           <form onSubmit={this.handleSubmit} className="col s4 white">
             <h5 className="grey-text text-darken-3">Login</h5>
             <div className="input-field">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email" className="active">Email</label>
               <input className="active" type="email" name="email" id="email" onChange={this.handleChange} />
             </div>
             <div className="input-field">
-              <label htmlFor="password">Password</label>
+              <label htmlFor="password" className="active">Password</label>
               <input className="active" type="password" name="password" id="password" onChange={this.handleChange} />
             </div>
             <div className="input-field">
