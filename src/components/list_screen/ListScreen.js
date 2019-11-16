@@ -5,7 +5,7 @@ import { compose } from 'redux';
 import ItemsList from './ItemsList.js';
 import { firestoreConnect } from 'react-redux-firebase';
 import {editHandler, deleteHandler, sort} from '../../store/database/asynchHandler'
-import { Modal, Button} from 'react-materialize';
+import { Modal, Button, Icon} from 'react-materialize';
 import add from "../../images/AddItem.png"
 
 
@@ -70,24 +70,11 @@ class ListScreen extends Component {
         if(!todoList)
             return <React.Fragment />
         // const trigger = <Button id="list_trash">Delete</Button>;
-        const trigger = <div id="list_trash">&#128465;</div>
+        const trigger = <div id="list_trash" className="red btn-floating pulse"><Icon>delete_forever</Icon></div>
         return (
-            <div className="container white">
-                <h5 className="grey-text text-darken-3">Todo List</h5>
-                <div className="input-field">
-                    <label htmlFor="email" className="active">Name</label>
-                    <input className="active" type="text" name="name" id="name" onChange={this.handleChange} value={this.props.todoList.name} />
-                </div>
-                <div className="input-field">
-                    <label htmlFor="password" className="active">Owner</label>
-                    <input className="active" type="text" name="owner" id="owner" onChange={this.handleChange} value={this.props.todoList.owner} />
-                </div>
-                <div className="list_item_header_card">
-                    <div className="list_item_task_header" onClick={()=>this.sort(this.props.todoList, "task")}>Task</div>
-                    <div className="list_item_due_date_header" onClick={()=>this.sort(this.props.todoList, "due_date")}>Due Date</div>
-                    <div className="list_item_status_header" onClick={()=>this.sort(this.props.todoList, "status")}>Status</div>
-                </div>
-                <ItemsList todoList={todoList} />
+            <div className="container">
+                
+                <h5 className="grey-text text-darken-3"><h4><strong>Todo List</strong></h4></h5>
                 <Modal 
                     header="Delete the list?" 
                     trigger={trigger} 
@@ -102,10 +89,35 @@ class ListScreen extends Component {
                     <p><strong>Are you sure to delete this list?</strong></p>
                     <p>The list will not be retrivable.</p>
                 </Modal>
+                <div className="input-field">
+                    <label htmlFor="email" className="active">Name</label>
+                    <input className="active" type="text" name="name" id="name" onChange={this.handleChange} value={this.props.todoList.name} />
+                </div>
+                <div className="input-field">
+                    <label htmlFor="password" className="active">Owner</label>
+                    <input className="active" type="text" name="owner" id="owner" onChange={this.handleChange} value={this.props.todoList.owner} />
+                </div>
+                
+                {/* <div class="card">
+                    <div className="card-content black-text">
+                        <div className="list_item_task_header" onClick={()=>this.sort(this.props.todoList, "task")}>Task</div>
+                        <div className="list_item_due_date_header" onClick={()=>this.sort(this.props.todoList, "due_date")}>Due Date</div>
+                        <div className="list_item_status_header" onClick={()=>this.sort(this.props.todoList, "status")}>Status</div>
+                    </div>
+                </div> */}
+
+                <div className="list_item_header_card z-depth-1">
+                    <div className="list_item_task_header" onClick={()=>this.sort(this.props.todoList, "task")}>Task</div>
+                    <div className="list_item_due_date_header" onClick={()=>this.sort(this.props.todoList, "due_date")}>Due Date</div>
+                    <div className="list_item_status_header" onClick={()=>this.sort(this.props.todoList, "status")}>Status</div>
+                </div>
+                <ItemsList todoList={todoList} />
                 <div className="list_item_add_card">
                     <img id="list_item_add_card" src={add} onClick={todoList=>{this.handleCreateItem(todoList)}}></img>
                     {/* <Icon id="list_item_add_card" onClick={todoList=>{this.handleCreateItem(todoList)}} small>add_circle_outline</Icon> */}
                 </div>
+                
+                
             </div>
         );
     }

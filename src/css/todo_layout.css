@@ -51,12 +51,10 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 
 /* LIST SCREEN CONTROLS */
 #list_heading {}
-#list_trash {
+/* #list_trash {
   position: relative;
-  left: auto;
-  font-size: 30px;
-  text-align: right;
-}
+  left: 100%;
+} */
 #list_details_container {
   padding-left: 2%;
   display: grid;
@@ -74,6 +72,11 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 #list_items_container {}
 
 /* LIST SCREEN CLASSES */
+#list_trash {
+  position: relative;
+  left: 95%;
+}
+
 .list_item_card, .list_item_add_card, .list_item_header_card {
   position: relative;
   height: 50px;
@@ -125,13 +128,16 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   vertical-align: center;
 }
 
-.fixed-action-btn {
-  position: fixed;
-  right: 0px;
-  bottom: 38.9px;
-}
-
 .fixed-action-btn.direction-left ul li, .fixed-action-btn.direction-right ul li {
   display: inline-block;
   margin: 0px 3px 0 0;
+}
+
+.fixed-action-btn {
+  position: relative;
+  bottom: 73.5px;
+  left: 16px;
+  padding-top: 15px;
+  margin-bottom: 0;
+  z-index: 997;
 }

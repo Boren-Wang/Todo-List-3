@@ -32,18 +32,18 @@ class ItemsList extends React.Component {
                     return (
                         <div>
                             <Link to={"/todoList/"+todoList.id+"/item/"+item.id}>
-                                <ItemCard todoList={todoList} listItem={item} />
+                                <ItemCard todoList={todoList} item={item} />
                             </Link>
                             <Button
                                 floating
                                 fab={{direction: 'left'}}
-                                className="red"
+                                className="pink halfway pulse"
                                 small
                                 style={{position: 'relative', textAlign: "right"}}
                             >
-                                <Button onClick={()=>props.move(todoList, item, 'up')} small floating icon={<Icon>arrow_upward</Icon>} className={"red"+upClassName} style={{margin: "0px"}}/>
+                                <Button onClick={()=>props.move(todoList, item, 'up')} small floating icon={<Icon>arrow_upward</Icon>} className={"green"+upClassName} style={{margin: "0px"}}/>
                                 <Button onClick={()=>props.move(todoList, item, 'down')} small floating icon={<Icon>arrow_downward</Icon>} className={"yellow darken-1"+downClassName} style={{margin: "0px"}}/>
-                                <Button small floating icon={<Icon>cancel</Icon>} className="green" style={{margin: "0px"}} onClick={()=>props.deleteTodoList(todoList, item)}/>
+                                <Button small floating icon={<Icon>cancel</Icon>} className="red" style={{margin: "0px"}} onClick={()=>props.deleteTodoList(todoList, item)}/>
                             </Button>
                         </div>
                     );})

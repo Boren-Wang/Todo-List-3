@@ -9,6 +9,9 @@ import {Icon, DatePicker} from 'react-materialize'
 class ItemScreen extends Component {
     constructor(props) {
         super(props)
+        if(!this.props.auth.uid){
+            this.props.history.goBack()
+        }
         this.state={
             id: this.props.todoItem.id,
             key: this.props.todoItem.key,
