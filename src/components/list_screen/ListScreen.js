@@ -130,7 +130,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => ({
     editTodoList: (todoList) => dispatch(editHandler(todoList)),
     deleteTodoList: (todoList) => dispatch(deleteHandler(todoList)),
-    sort: (todoList, criterion, sorted) => dispatch(sort(todoList, criterion, sorted))
+    sort: (todoList, criterion, sorted) => dispatch(sort(todoList, criterion, sorted)),
 })
 
 export default compose(

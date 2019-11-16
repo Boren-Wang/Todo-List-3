@@ -41,6 +41,16 @@ const todoListReducer = (state = initState, action) => {
         case "DELETE_ITEM_ERROR":
             console.log("delete item error", action.error)
             return state
+        case "MOVE":
+            return state
+        case "MOVE_ITEM_ERROR":
+            console.log(action.error)
+            return state
+        case "SORT_ITEM":
+            return state
+        case "SORT_ITEM_ERROR":
+            console.log(action.error)
+            return state
         default:
             return state
     }

@@ -105,9 +105,29 @@ export const deleteItemHandler = (todoList, item) => {
   }
 }
 
+export const move = (todoList, newItem, criterion) => {
+  return (dispatch, getState, {getFirebase, getFirestore}) => {
+    let index = todoList.items.indexOf(todoList.items.filter(item => newItem.id == item.id)[0])
+    if(criterion==="up"){
+      swap(todoList.items, index, index-1)
+    } else {
+      swap(todoList.items, index, index+1)
+    }
+    const firestore = getFirestore()
+    firestore.collection('todoLists').doc(todoList.id).update(todoList)
+      .then(()=> dispatch({type: "MOVE"}) )
+      .catch(error => dispatch({type: "MOVE_ERROR", error}))
+  }
+}
+
+const swap = (array, i, j) => {
+  let temp = array[i]
+  array[i] = array[j]
+  array[j] = temp
+}
+
 export const sort = (todoList, criterion, sorted) => {
   return (dispatch, getState, {getFirebase, getFirestore}) => {
-    // todoList.items[item.id] = null
     let compare;
     if(criterion==='task') compare = byTask
     else if(criterion==='due_date') compare = byDueDate
