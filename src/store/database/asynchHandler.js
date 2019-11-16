@@ -38,13 +38,13 @@ export const createHandler = (todoList) => {
   return (dispatch, getState, {getFirebase, getFirestore}) => {
       // make async call to database
       const firestore = getFirestore()
-      const profile = getState().firebase.profile
-      const authorId = getState().firebase.auth.uid
+      // const profile = getState().firebase.profile
+      // const authorId = getState().firebase.auth.uid
       const newTodoList = {
         ...todoList,
-        authorFirstName: profile.firstName,
-        authorLastName: profile.lastName,
-        authorId: authorId
+        // authorFirstName: profile.firstName,
+        // authorLastName: profile.lastName,
+        // authorId: authorId
       }
       firestore.collection('todoLists').add(newTodoList)
         .then(() => dispatch({type: "CREATE_LIST", newTodoList}))
@@ -74,7 +74,6 @@ export const deleteHandler = (todoList) => {
 
 export const createItemHandler = (todoList, newItem) => {
   return (dispatch, getState, {getFirebase, getFirestore}) => {
-    console.log(todoList, newItem)
     todoList.items.push(newItem)
     const firestore = getFirestore()
     firestore.collection('todoLists').doc(todoList.id).update(todoList)
@@ -85,17 +84,69 @@ export const createItemHandler = (todoList, newItem) => {
 
 export const editItemHandler = (todoList, newItem) => {
   return (dispatch, getState, {getFirebase, getFirestore}) => {
-    // todoList.items[newItem.itemId] = newItem
-
-    // let index = todoList.items.indexOf(todoList.items.filter(item => newItem.itemId == item.id)[0])
-    // todoList.items[index] = newItem
-
-    todoList.items[newItem.id] = newItem
-    console.log(todoList)
+    // todoList.items[newItem.id] = newItem
+    let index = todoList.items.indexOf(todoList.items.filter(item => newItem.id == item.id)[0])
+    todoList.items[index] = newItem
     const firestore = getFirestore()
     firestore.collection('todoLists').doc(todoList.id).update(todoList)
       .then(()=> dispatch({type: "EDIT_ITEM", newItem}) )
       .catch(error => dispatch({type: "EDIT_ITEM_ERROR", error}))
   }
+}
+
+export const deleteItemHandler = (todoList, item) => {
+  return (dispatch, getState, {getFirebase, getFirestore}) => {
+    // todoList.items[item.id] = null
+    todoList.items = todoList.items.filter((i)=>i.id!==item.id) 
+    const firestore = getFirestore()
+    firestore.collection('todoLists').doc(todoList.id).update(todoList)
+      .then(()=> dispatch({type: "DELETE_ITEM", item}) )
+      .catch(error => dispatch({type: "DELETE_ITEM_ERROR", error}))
+  }
+}
+
+export const sort = (todoList, criterion, sorted) => {
+  return (dispatch, getState, {getFirebase, getFirestore}) => {
+    // todoList.items[item.id] = null
+    let compare;
+    if(criterion==='task') compare = byTask
+    else if(criterion==='due_date') compare = byDueDate
+    else compare = byStatus
+    todoList.items.sort((item1, item2)=>compare(item1, item2, sorted))
+    const firestore = getFirestore()
+    firestore.collection('todoLists').doc(todoList.id).update(todoList)
+      .then(()=> dispatch({type: "SORT"}) )
+      .catch(error => dispatch({type: "SORT_ERROR", error}))
+  }
+}
+
+const byTask = (item1, item2, sorted)=>{
+  let result;
+  if(item1.description<item2.description) result = -1
+  else if(item1.description===item2.description) result = 0
+  else result = 1
+
+  if(sorted) return -result
+  else return result
+}
+
+const byDueDate = (item1, item2, sorted)=>{
+  let result;
+  if(item1.due_date<item2.due_date) result = -1
+  else if(item1.due_date===item2.due_date) result = 0
+  else result = 1
+
+  if(sorted) return -result
+  else return result
+}
+
+const byStatus = (item1, item2, sorted)=>{
+  let result;
+  if(item1.completed<item2.completed) result = -1
+  else if(item1.completed===item2.completed) result = 0
+  else result = 1
+
+  if(sorted) return -result
+  else return result
 }
 

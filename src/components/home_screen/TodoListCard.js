@@ -1,5 +1,5 @@
 import React from 'react';
-
+import moment from 'moment'
 class TodoListCard extends React.Component {
 
     render() {
@@ -9,6 +9,7 @@ class TodoListCard extends React.Component {
             <div className="card z-depth-0 todo-list-link">
                 <div className="card-content grey-text text-darken-3">
                     <span className="card-title">{todoList.name}</span>
+                    <div><span>{ moment(todoList.editedAt.toDate()).calendar() }</span></div>
                 </div>
             </div>
         );

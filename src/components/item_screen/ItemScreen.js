@@ -37,7 +37,7 @@ class ItemScreen extends Component {
             ...this.props.todoItem,
             ...this.state
         }
-        if(this.props.itemId!==''){
+        if(!this.props.isNewItem){
             this.props.editItem(this.props.todoList, newItem)
         } else {
             this.props.createItem(this.props.todoList, newItem)
@@ -85,19 +85,23 @@ const mapStateToProps = (state, ownProps) => {
         due_date: "",
         completed: ""
     }
+    let isNewItem;
     if(todoList) {
         todoList.id = id;
         // todoItem = itemId ? todoList.items[itemId] : newItem 
         if(itemId) {
             // console.log(todoList.items[0].id, itemId)
             todoItem = todoList.items.filter((item) => {return item.id==itemId})[0]
+            isNewItem = false
         } else {
             todoItem = newItem
+            isNewItem = true
         }
     }
     return {
         todoList,
         todoItem,
+        isNewItem,
         auth: state.firebase.auth,
     };
 }

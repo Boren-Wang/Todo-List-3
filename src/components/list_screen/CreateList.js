@@ -10,10 +10,10 @@ class CreateList extends Component {
     "name": "",
     "owner": "",
     "items": [],
-    "authorFirstName": "",
-    "authorLastName": "",
-    "authorId": "",
-    "editAt": new Date()
+    // "authorFirstName": "",
+    // "authorLastName": "",
+    // "authorId": "",
+    "editedAt": new Date()
   }
 
   handleChange = (e) => {
@@ -32,7 +32,7 @@ class CreateList extends Component {
     const { firebase } = props;
     const newList = { 
       ...state, 
-      editAt: new Date()
+      editedAt: new Date()
     };
 
     this.props.createTodoList(newList)

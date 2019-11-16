@@ -4,9 +4,22 @@ import { compose } from 'redux';
 import { NavLink, Redirect } from 'react-router-dom';
 import { firestoreConnect } from 'react-redux-firebase';
 import TodoListLinks from './TodoListLinks'
+// import {createHandler} from '../../store/database/asynchHandler'
 
 class HomeScreen extends Component {
-
+    // handleCreate() {
+    //     const newList = {
+    //         "name": "Unknown",
+    //         "owner": "Unknown",
+    //         "items": [],
+    //         // "authorFirstName": "",
+    //         // "authorLastName": "",
+    //         // "authorId": "",
+    //         "editedAt": new Date()
+    //     }
+    //     this.props.createTodoList(newList)
+    //     this.props.history.push()
+    // }
     render() {
         if (!this.props.auth.uid) {
             return <Redirect to="/login" />;
@@ -16,7 +29,7 @@ class HomeScreen extends Component {
             <div className="dashboard container">
                 <div className="row">
                     <div className="col s12 m4">
-                        <TodoListLinks />
+                        <TodoListLinks todoLists={this.props.todoLists}/>
                     </div>
 
                     <div className="col s8">
@@ -31,6 +44,7 @@ class HomeScreen extends Component {
                                 </button> */}
                                 <button className="home_new_list_button">
                                     <NavLink to="/create" className="link">Create a New To Do List</NavLink>
+                                    {/* Create a New To Do List */}
                                 </button>
                         </div>
                     </div>
@@ -42,13 +56,25 @@ class HomeScreen extends Component {
 
 const mapStateToProps = (state) => {
     return {
+        todoLists: state.firestore.ordered.todoLists,
         auth: state.firebase.auth
     };
 };
 
+// const mapDispatchToProps = dispatch => ({
+//     createTodoList: (todoList) => dispatch(createHandler(todoList))
+// })
+
+// export default compose(
+//     connect(mapStateToProps),
+//     firestoreConnect([
+//       { collection: 'todoLists'},
+//     ]),
+// )(HomeScreen);
+
 export default compose(
     connect(mapStateToProps),
     firestoreConnect([
-      { collection: 'todoLists' },
-    ]),
+        { collection: 'todoLists', orderBy: ["editedAt", 'desc']}
+    ])
 )(HomeScreen);
